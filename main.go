@@ -13,12 +13,13 @@ func main() {
 	}
 
 	for {
+		log.Println("waiting for connection...")
 		conn, err := listener.Accept()
 		if err != nil {
 			log.Fatal(err)
 		}
-
-		do(conn)
+		log.Println("Connection established")
+		go do(conn)
 	}
 }
 
@@ -33,7 +34,8 @@ func do(conn net.Conn) {
 	}
 
 	// processing
-	time.Sleep(1 * time.Second)
+	log.Println("processing the request...")
+	time.Sleep(8 * time.Second)
 
 	conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\nHello, World!\r\n"))
 
